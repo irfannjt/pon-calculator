@@ -1,3 +1,18 @@
 import type { NextConfig } from 'next';
-const nextConfig: NextConfig = { output: 'standalone' };
+
+const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
+
+const nextConfig: NextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
+  ...(isGitHubPages
+    ? {
+        basePath: '/pon-calculator',
+      }
+    : {}),
+};
+
 export default nextConfig;
